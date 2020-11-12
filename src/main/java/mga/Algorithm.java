@@ -12,12 +12,9 @@ public class Algorithm {
 	private final Random rand = new Random();
 	private final ArrayList<String> colors = new ArrayList<String>(Arrays.asList("Bleu", "Rouge", "Vert", "Jaune", "Violet"));
 		
+	@SuppressWarnings("unchecked")
 	public HashMap<Integer, String> coloringRec(HashMap<Integer, ArrayList<Integer>> graph) throws Exception {	
 		HashMap<Integer, String> coloredGraph = new HashMap<Integer, String>();
-		for (Map.Entry<Integer, ArrayList<Integer>> entry : graph.entrySet()) {
-			coloredGraph.put(entry.getKey(), "");
-		}
-		
 	
 		//On effectue les vérifications
 		//Si le graphe n'est pas vide
@@ -28,29 +25,27 @@ public class Algorithm {
 				if (entry.getValue().size() > 5)
 					throw new Exception();
 			}
-			
+						
 			int x = getRandomSommet(graph);
-			System.out.println("Avant" + graph.size());
 			if (graph.size() > 1) {
-				HashMap<Integer, ArrayList<Integer>> graphWithoutX = graph;
+				HashMap<Integer, ArrayList<Integer>> graphWithoutX = (HashMap<Integer, ArrayList<Integer>>) graph.clone();
 				graphWithoutX.remove(x);
 				coloredGraph = coloringRec(graphWithoutX);
 			}
-			System.out.println("Après" + graph.size());
+			System.out.println("Après " + graph.size());
 			
 			//Brique 4
 			if (graph.get(x).size() <= 4) {
 				for (int vertex : graph.get(x)) {
 					for (String color : colors) {
-						System.out.println(coloredGraph.get(vertex));
-						if (!coloredGraph.get(vertex).contains(color)) {
-							coloredGraph.put(x, color);
+						if (coloredGraph.get(vertex) == null || !coloredGraph.get(vertex).contains(color)) {
+							coloredGraph.put(x, getUnusedColorInNeighbors(graph, coloredGraph, x).get(0));
 							break;
 						}
 					}
 				}	
 			}
-			
+						
 			if (graph.get(x).size() == 5) {
 				ArrayList<String> usedColor = new ArrayList<String>();
 				for (int neighbor : graph.get(x)) {
@@ -115,6 +110,19 @@ public class Algorithm {
 		
 		return coloredGraph;
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private ArrayList<String> getUnusedColorInNeighbors(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, String> coloredGraph, int element) {
+		ArrayList<String> usedColors = new ArrayList<String>();
+		for (int voisinDeX : graph.get(element)) {
+			if (coloredGraph.get(voisinDeX) != null)
+				usedColors.add(coloredGraph.get(voisinDeX));
+		}
+		
+		ArrayList<String> unusedColors = (ArrayList<String>) colors.clone();
+		unusedColors.removeAll(usedColors);
+		return unusedColors;
 	}
 
 	private int getRandomSommet(HashMap<Integer, ArrayList<Integer>> graph) {
