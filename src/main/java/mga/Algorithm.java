@@ -19,13 +19,13 @@ public class Algorithm {
 		//On effectue les vérifications
 		//Si le graphe n'est pas vide
 		if (!graph.isEmpty()) {
-
+			
 			//S'il existe un sommet avec un degré supérieur à 5
 			for (Map.Entry<Integer, ArrayList<Integer>> entry : graph.entrySet()) {
 				if (entry.getValue().size() > 5)
 					throw new Exception();
 			}
-						
+
 			int x = getRandomSommet(graph);
 			if (graph.size() > 1) {
 				HashMap<Integer, ArrayList<Integer>> graphWithoutX = (HashMap<Integer, ArrayList<Integer>>) graph.clone();
@@ -47,15 +47,11 @@ public class Algorithm {
 			}
 						
 			if (graph.get(x).size() == 5) {
-				ArrayList<String> usedColor = new ArrayList<String>();
-				for (int neighbor : graph.get(x)) {
-					usedColor.add(coloredGraph.get(neighbor));
-				}
+				ArrayList<String> unusedColors = getUnusedColorInNeighbors(graph, coloredGraph, x);
 				
 				//Brique 5
-				if (usedColor.size() != 5) {
-					if (isAllElementDifferent(usedColor))
-						coloredGraph.put(x, colors.get(colors.size() - 1));
+				if (unusedColors.size() >= 1) {
+					coloredGraph.put(x, unusedColors.get(0));
 				}
 				//Brique 6
 				else {	
@@ -70,8 +66,9 @@ public class Algorithm {
 	private HashMap<Integer, String> brique6(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, String> coloredGraph, int x) {
 		PriorityQueue<Integer> voisinsAtteint = new PriorityQueue<>();
 		ArrayList<Integer> voisinsConnus = new ArrayList<Integer>();
-		
+		System.out.println(graph.get(x));
 		for (Integer voisinDeX : graph.get(x)) {
+			System.out.println(graph.get(voisinDeX));
 			for (Integer voisinDeVoisinDeX : graph.get(voisinDeX)) {
 				if (!voisinsConnus.contains(voisinDeVoisinDeX)) {
 					voisinsConnus.add(voisinDeVoisinDeX);
@@ -130,16 +127,5 @@ public class Algorithm {
 		int randomNumber = rand.nextInt(graphLength);
 				
 		return (Integer) graph.keySet().toArray()[randomNumber];
-	}
-	
-	private <T> boolean isAllElementDifferent(ArrayList<T> array) {
-		for (T element : array) {
-			ArrayList<T> arrayWihoutElement = array;
-			arrayWihoutElement.remove(element);
-			if (arrayWihoutElement.contains(element))
-				return false;
-		}
-		
-		return true;
 	}
 }
