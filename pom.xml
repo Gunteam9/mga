@@ -3,4 +3,17 @@
   <groupId>fr.univ.orleans</groupId>
   <artifactId>mga</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+    
+	<build>    
+	    <plugins>
+	      	<plugin>
+	        	<artifactId>maven-compiler-plugin</artifactId>
+	        	<version>3.8.0</version>
+		        <configuration>
+		          	<release>13</release>
+		        </configuration>
+	      	</plugin>
+    	</plugins>
+    	</build>
+    
 </project>
