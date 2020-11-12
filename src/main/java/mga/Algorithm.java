@@ -13,7 +13,11 @@ public class Algorithm {
 	private final ArrayList<String> colors = new ArrayList<String>(Arrays.asList("Bleu", "Rouge", "Vert", "Jaune", "Violet"));
 		
 	public HashMap<Integer, String> coloringRec(HashMap<Integer, ArrayList<Integer>> graph) throws Exception {	
-		HashMap<Integer, String> coloredGraph = null;
+		HashMap<Integer, String> coloredGraph = new HashMap<Integer, String>();
+		for (Map.Entry<Integer, ArrayList<Integer>> entry : graph.entrySet()) {
+			coloredGraph.put(entry.getKey(), "");
+		}
+		
 	
 		//On effectue les vérifications
 		//Si le graphe n'est pas vide
@@ -26,15 +30,19 @@ public class Algorithm {
 			}
 			
 			int x = getRandomSommet(graph);
-			HashMap<Integer, ArrayList<Integer>> graphWithoutX = graph;
-			graphWithoutX.remove(x);
-			coloredGraph = coloringRec(graphWithoutX);
+			System.out.println("Avant" + graph.size());
+			if (graph.size() > 1) {
+				HashMap<Integer, ArrayList<Integer>> graphWithoutX = graph;
+				graphWithoutX.remove(x);
+				coloredGraph = coloringRec(graphWithoutX);
+			}
+			System.out.println("Après" + graph.size());
 			
-			System.out.println(x);
 			//Brique 4
 			if (graph.get(x).size() <= 4) {
 				for (int vertex : graph.get(x)) {
 					for (String color : colors) {
+						System.out.println(coloredGraph.get(vertex));
 						if (!coloredGraph.get(vertex).contains(color)) {
 							coloredGraph.put(x, color);
 							break;
