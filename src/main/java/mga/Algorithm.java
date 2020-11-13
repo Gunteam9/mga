@@ -93,9 +93,7 @@ public class Algorithm {
 				int element = voisinsAtteint.poll();
 				if(graph.containsKey(element)) {
 					for (Integer obj : graph.get(element)) {
-						System.out.println(graph);
 						if (!voisinsConnus.contains(obj)) {
-							System.out.println(obj);
 							voisinsConnus.add(obj);
 							voisinsAtteint.add(obj);
 						}
