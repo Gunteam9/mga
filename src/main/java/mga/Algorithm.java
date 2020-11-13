@@ -81,9 +81,7 @@ public class Algorithm {
 	private HashMap<Integer, Color> brique6(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, Color> coloredGraph, int x) {
 		PriorityQueue<Integer> voisinsAtteint = new PriorityQueue<>();
 		ArrayList<Integer> voisinsConnus = new ArrayList<Integer>();
-		System.out.println(graph.get(x));
 		for (Integer voisinDeX : graph.get(x)) {
-			System.out.println(graph.get(voisinDeX));
 			for (Integer voisinDeVoisinDeX : graph.get(voisinDeX)) {
 				if (!voisinsConnus.contains(voisinDeVoisinDeX)) {
 					voisinsConnus.add(voisinDeVoisinDeX);
@@ -93,10 +91,14 @@ public class Algorithm {
 			
 			while(!voisinsAtteint.isEmpty()) {
 				int element = voisinsAtteint.poll();
-				for (Integer obj : graph.get(element)) {
-					if (!voisinsConnus.contains(obj)) {
-						voisinsConnus.add(obj);
-						voisinsAtteint.add(obj);
+				if(graph.containsKey(element)) {
+					for (Integer obj : graph.get(element)) {
+						System.out.println(graph);
+						if (!voisinsConnus.contains(obj)) {
+							System.out.println(obj);
+							voisinsConnus.add(obj);
+							voisinsAtteint.add(obj);
+						}
 					}
 				}
 			}
