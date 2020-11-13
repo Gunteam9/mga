@@ -63,12 +63,17 @@ public class Algorithm {
 	}
 
 	public boolean checkColoring(HashMap<Integer, ArrayList<Integer>> graph,HashMap<Integer, Color> coloredGraph){
+		ArrayList<Integer> checked = new ArrayList<>();
+
 		for (Map.Entry mapentry : graph.entrySet()) {
-			for(Integer voisin : (Integer[]) mapentry.getValue()){
-				if(coloredGraph.get(mapentry.getKey()).equals(coloredGraph.get(voisin))){
-					return false;
+			for(Integer voisin : (Integer[]) mapentry.getValue()) {
+				if (!checked.contains(voisin)) {
+					if (coloredGraph.get(mapentry.getKey()).equals(coloredGraph.get(voisin))) {
+						return false;
+					}
 				}
 			}
+			checked.add((Integer) mapentry.getKey());
 		}
 		return true;
 	}
