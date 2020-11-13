@@ -19,12 +19,6 @@ public class Algorithm {
 		//On effectue les vérifications
 		//Si le graphe n'est pas vide
 		if (!graph.isEmpty()) {
-			
-			//S'il existe un sommet avec un degré supérieur à 5
-			for (Map.Entry<Integer, ArrayList<Integer>> entry : graph.entrySet()) {
-				if (entry.getValue().size() > 5)
-					throw new Exception();
-			}
 
 			int x = getRandomSommet(graph);
 			if (graph.size() > 1) {
@@ -32,8 +26,7 @@ public class Algorithm {
 				graphWithoutX.remove(x);
 				coloredGraph = coloringRec(graphWithoutX);
 			}
-			System.out.println("Après " + graph.size());
-			
+
 			//Brique 4
 			if (graph.get(x).size() <= 4) {
 				for (int vertex : graph.get(x)) {
@@ -55,6 +48,17 @@ public class Algorithm {
 				}
 				//Brique 6
 				else {	
+					coloredGraph = brique6(graph, coloredGraph, x);
+				}
+			}
+			//Cas voisins > 5
+			else{
+				ArrayList<String> unusedColors = getUnusedColorInNeighbors(graph, coloredGraph, x);
+				if (unusedColors.size() >= 1) {
+					coloredGraph.put(x, unusedColors.get(0));
+				}
+				//Brique 6
+				else {
 					coloredGraph = brique6(graph, coloredGraph, x);
 				}
 			}

@@ -23,7 +23,7 @@ public class Launcher {
 		graph.put(9, new ArrayList<Integer>(Arrays.asList(6,3,2,8,10)));
 		graph.put(10, new ArrayList<Integer>(Arrays.asList(9,8)));
 		graph.put(11, new ArrayList<Integer>(Arrays.asList(0,7,3,6)));
-				
+
 		Algorithm a = new Algorithm();
 		
 		try {
@@ -31,8 +31,6 @@ public class Launcher {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println(coloredGraph);
 		
 		for (Map.Entry<Integer, String> entry : coloredGraph.entrySet()) {
 			System.out.println(entry.getKey() + " est " + entry.getValue());
