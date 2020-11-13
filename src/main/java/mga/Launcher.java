@@ -2,7 +2,6 @@ package mga;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,9 +18,11 @@ public class Launcher {
 		
 		try {
 			coloredGraph = a.coloringRec(graph);
+			fileSystem.writeFile(coloredGraph);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 				
 		for (Map.Entry<Integer, String> entry : coloredGraph.entrySet()) {
 			System.out.println(entry.getKey() + " est " + entry.getValue());

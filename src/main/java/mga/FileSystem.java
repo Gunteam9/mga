@@ -2,10 +2,12 @@ package mga;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class FileSystem {
 
@@ -35,11 +37,37 @@ public class FileSystem {
 	        	
 	        	line++;
 	        }
+	        
+	        b.close();
 
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
 		
 		return map;
+	}
+	
+	
+	public File writeFile(HashMap<Integer, String> coloredGraph) throws IOException {
+		File file = new File("resources/coloredGraph.colors");
+		file.createNewFile();
+		
+		FileOutputStream outputStream = new FileOutputStream(file);
+			
+		outputStream.write((String.valueOf(coloredGraph.size()) + "\n").getBytes());
+		
+		for (Map.Entry<Integer, String> entry : coloredGraph.entrySet()) {
+			StringBuilder lineBuilder = new StringBuilder();
+			lineBuilder.append(entry.getKey());
+			lineBuilder.append(": ");
+			lineBuilder.append(entry.getValue());
+			lineBuilder.append("\n");
+			
+			outputStream.write(lineBuilder.toString().getBytes());
+		}
+		
+		outputStream.close();
+		
+		return file;
 	}
 }
