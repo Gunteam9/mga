@@ -1,21 +1,20 @@
 package mga;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Random;
 
 public class Algorithm {
 	
 	private final Random rand = new Random();
-	private final ArrayList<String> colors = new ArrayList<String>(Arrays.asList("Bleu", "Rouge", "Vert", "Jaune", "Violet"));
+	private final ArrayList<Color> colors = new ArrayList<Color>(Arrays.asList(Color.blue, Color.red, Color.green, Color.gray, Color.magenta));
+	private HashMap<Integer, Color> coloredGraph = new HashMap<Integer, Color>();
 		
 	@SuppressWarnings("unchecked")
-	public HashMap<Integer, String> coloringRec(HashMap<Integer, ArrayList<Integer>> graph) throws Exception {	
-		HashMap<Integer, String> coloredGraph = new HashMap<Integer, String>();
-	
+	public HashMap<Integer, Color> coloringRec(HashMap<Integer, ArrayList<Integer>> graph) throws Exception {	
 		//On effectue les vérifications
 		//Si le graphe n'est pas vide
 		if (!graph.isEmpty()) {
@@ -30,8 +29,8 @@ public class Algorithm {
 			//Brique 4
 			if (graph.get(x).size() <= 4) {
 				for (int vertex : graph.get(x)) {
-					for (String color : colors) {
-						if (coloredGraph.get(vertex) == null || !coloredGraph.get(vertex).contains(color)) {
+					for (Color color : colors) {
+						if (coloredGraph.get(vertex) == null || !coloredGraph.get(vertex).equals(color)) {
 							coloredGraph.put(x, getUnusedColorInNeighbors(graph, coloredGraph, x).get(0));
 							break;
 						}
@@ -40,7 +39,7 @@ public class Algorithm {
 			}
 						
 			if (graph.get(x).size() == 5) {
-				ArrayList<String> unusedColors = getUnusedColorInNeighbors(graph, coloredGraph, x);
+				ArrayList<Color> unusedColors = getUnusedColorInNeighbors(graph, coloredGraph, x);
 				
 				//Brique 5
 				if (unusedColors.size() >= 1) {
@@ -53,7 +52,7 @@ public class Algorithm {
 			}
 			//Cas voisins > 5
 			else{
-				ArrayList<String> unusedColors = getUnusedColorInNeighbors(graph, coloredGraph, x);
+				ArrayList<Color> unusedColors = getUnusedColorInNeighbors(graph, coloredGraph, x);
 				if (unusedColors.size() >= 1) {
 					coloredGraph.put(x, unusedColors.get(0));
 				}
@@ -67,7 +66,7 @@ public class Algorithm {
 		return coloredGraph;
 	}
 	
-	private HashMap<Integer, String> brique6(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, String> coloredGraph, int x) {
+	private HashMap<Integer, Color> brique6(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, Color> coloredGraph, int x) {
 		PriorityQueue<Integer> voisinsAtteint = new PriorityQueue<>();
 		ArrayList<Integer> voisinsConnus = new ArrayList<Integer>();
 		System.out.println(graph.get(x));
@@ -103,8 +102,8 @@ public class Algorithm {
 		return coloredGraph;
 	}
 
-	private HashMap<Integer, String> echangerCouleur(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, String> coloredGraph, int sommet1, int sommet2) {
-		String color1 = coloredGraph.get(sommet1);
+	private HashMap<Integer, Color> echangerCouleur(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, Color> coloredGraph, int sommet1, int sommet2) {
+		Color color1 = coloredGraph.get(sommet1);
 		
 		coloredGraph.replace(sommet1, coloredGraph.get(sommet2));
 		coloredGraph.replace(sommet2, color1);
@@ -114,14 +113,14 @@ public class Algorithm {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private ArrayList<String> getUnusedColorInNeighbors(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, String> coloredGraph, int element) {
-		ArrayList<String> usedColors = new ArrayList<String>();
+	private ArrayList<Color> getUnusedColorInNeighbors(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, Color> coloredGraph, int element) {
+		ArrayList<Color> usedColors = new ArrayList<Color>();
 		for (int voisinDeX : graph.get(element)) {
 			if (coloredGraph.get(voisinDeX) != null)
 				usedColors.add(coloredGraph.get(voisinDeX));
 		}
 		
-		ArrayList<String> unusedColors = (ArrayList<String>) colors.clone();
+		ArrayList<Color> unusedColors = (ArrayList<Color>) colors.clone();
 		unusedColors.removeAll(usedColors);
 		return unusedColors;
 	}

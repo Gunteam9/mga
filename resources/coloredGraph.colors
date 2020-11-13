@@ -1,11 +1,11 @@
 10
-0: Rouge
-1: Bleu
-2: Vert
-3: Jaune
-4: Bleu
-5: Vert
-6: Vert
-7: Rouge
-8: Bleu
-9: Rouge
+0: java.awt.Color[r=0,g=255,b=0]
+1: java.awt.Color[r=0,g=255,b=0]
+2: java.awt.Color[r=255,g=0,b=0]
+3: java.awt.Color[r=0,g=0,b=255]
+4: java.awt.Color[r=0,g=255,b=0]
+5: java.awt.Color[r=255,g=0,b=0]
+6: java.awt.Color[r=255,g=0,b=0]
+7: java.awt.Color[r=0,g=0,b=255]
+8: java.awt.Color[r=0,g=0,b=255]
+9: java.awt.Color[r=0,g=0,b=255]
