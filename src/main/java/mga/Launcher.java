@@ -17,6 +17,7 @@ public class Launcher {
 	public static void main(String[] args) {	
 		HashMap<Integer, ArrayList<Integer>> graph = fileSystem.readFile(graphFile);
 		HashMap<Integer, Color> coloredGraph = null;
+		long startTime = System.nanoTime();
 		
 				
 		try {
@@ -34,6 +35,11 @@ public class Launcher {
 		}
 		
 		Graphic graphic = new Graphic(fileSystem.readGraphicFile(graphPointPosition), graph, coloredGraph);
+
+		long endTime   = System.nanoTime();
+		long totalTime = endTime - startTime;
+		double totalTimeInSecond = (double) totalTime /1_000_000_000;
+		System.out.println(totalTimeInSecond + "secondes" );
 	}
 
 }
