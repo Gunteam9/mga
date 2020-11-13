@@ -9,8 +9,8 @@ import java.util.Map;
 public class Launcher {
 
 	private static FileSystem fileSystem = new FileSystem();
-	private static File graphFile = new File("resources/JoliGraphe10.graphe");
-	private static File graphPointPosition = new File("resources/JoliGraphe10.coords");
+	private static File graphFile = new File("resources/JoliGraphe100.graphe");
+	private static File graphPointPosition = new File("resources/JoliGraphe100.coords");
 	private static Algorithm algo = new Algorithm();
 	
 	
@@ -21,7 +21,9 @@ public class Launcher {
 				
 		try {
 			coloredGraph = algo.coloringRec(graph);
-			fileSystem.writeFile(coloredGraph);
+			if(algo.checkColoring(graph,coloredGraph)){
+				fileSystem.writeFile(coloredGraph);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

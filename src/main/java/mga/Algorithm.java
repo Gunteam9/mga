@@ -1,11 +1,7 @@
 package mga;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.PriorityQueue;
-import java.util.Random;
+import java.util.*;
 
 public class Algorithm {
 	
@@ -64,6 +60,17 @@ public class Algorithm {
 		}
 		
 		return coloredGraph;
+	}
+
+	public boolean checkColoring(HashMap<Integer, ArrayList<Integer>> graph,HashMap<Integer, Color> coloredGraph){
+		for (Map.Entry mapentry : graph.entrySet()) {
+			for(Integer voisin : (Integer[]) mapentry.getValue()){
+				if(coloredGraph.get(mapentry.getKey()).equals(coloredGraph.get(voisin))){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	private HashMap<Integer, Color> brique6(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, Color> coloredGraph, int x) {

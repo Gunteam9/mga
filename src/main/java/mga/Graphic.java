@@ -37,8 +37,9 @@ public class Graphic extends JPanel{
 		this.coloredGraph = coloredGraph;
 		
 		//TODO Change the factor the upgrade or downgrade the graph size
-		POINT_SIZE *= graph.size() * 0.1;
-		POINT_POS_MULT *= graph.size() * 0.1;
+		System.out.println(graph.size());
+		POINT_SIZE *= graph.size() * 0.02;
+		POINT_POS_MULT *= graph.size() * 0.02;
         
         frame.setSize(1600, 900);		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,7 +83,8 @@ public class Graphic extends JPanel{
 		for (Map.Entry<Integer, ArrayList<Integer>> entry : graph.entrySet()) {
 			for (Integer item : entry.getValue()) {
 				linesToDraw.add(new Quartet<Integer, Integer, Integer, Integer>(
-						pointPosition.get(entry.getKey())[0], pointPosition.get(entry.getKey())[1], pointPosition.get(item)[0], pointPosition.get(item)[1]));
+						pointPosition.get(entry.getKey())[0], pointPosition.get(entry.getKey())[1],
+						pointPosition.get(item)[0], pointPosition.get(item)[1]));
 			}
 		}
 	}
