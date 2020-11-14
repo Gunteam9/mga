@@ -12,6 +12,11 @@ import java.util.Map;
 
 public class FileSystem {
 
+	/**
+	 * Read a .graph file and return the graph
+	 * @param file
+	 * @return
+	 */
 	public HashMap<Integer, ArrayList<Integer>> readFile(File file) {
 		HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
 		
@@ -48,7 +53,11 @@ public class FileSystem {
 		return map;
 	}
 	
-	
+	/**
+	 * Read a .coords file and return the points positions
+	 * @param file
+	 * @return
+	 */
 	public HashMap<Integer, Integer[]> readGraphicFile(File file) {
 		HashMap<Integer, Integer[]> map = new HashMap<Integer, Integer[]>();
 		
@@ -88,7 +97,12 @@ public class FileSystem {
 	
 	
 	
-	
+	/**
+	 * Write a graph in a .colors file
+	 * @param coloredGraph
+	 * @return
+	 * @throws IOException
+	 */
 	public File writeFile(HashMap<Integer, Color> coloredGraph) throws IOException {
 		File file = new File("resources/coloredGraph.colors");
 		file.createNewFile();
@@ -101,7 +115,7 @@ public class FileSystem {
 			StringBuilder lineBuilder = new StringBuilder();
 			lineBuilder.append(entry.getKey());
 			lineBuilder.append(": ");
-			lineBuilder.append(entry.getValue());
+			lineBuilder.append(Utils.getColorName(entry.getValue()));
 			lineBuilder.append("\n");
 			
 			outputStream.write(lineBuilder.toString().getBytes());
@@ -111,4 +125,5 @@ public class FileSystem {
 		
 		return file;
 	}
+
 }

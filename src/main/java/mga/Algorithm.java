@@ -6,9 +6,15 @@ import java.util.*;
 public class Algorithm {
 	
 	private final Random rand = new Random();
-	private final ArrayList<Color> colors = new ArrayList<Color>(Arrays.asList(Color.blue, Color.red, Color.green, Color.gray, Color.magenta));
+	private final ArrayList<Color> colors = new ArrayList<Color>(Arrays.asList(Color.blue, Color.red, Color.green, Color.white, Color.black));
 	private HashMap<Integer, Color> coloredGraph = new HashMap<Integer, Color>();
 		
+	/**
+	 * Return a colored graph
+	 * @param graph
+	 * @return
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unchecked")
 	public HashMap<Integer, Color> coloringRec(HashMap<Integer, ArrayList<Integer>> graph) throws Exception {	
 		//On effectue les vérifications
@@ -22,12 +28,14 @@ public class Algorithm {
 				coloredGraph = coloringRec(graphWithoutX);
 			}
 
+			ArrayList<Color> unusedColors = getUnusedColorInNeighbors(graph, coloredGraph, x);
+			
 			//Brique 4
 			if (graph.get(x).size() <= 4) {
 				for (int vertex : graph.get(x)) {
 					for (Color color : colors) {
 						if (coloredGraph.get(vertex) == null || !coloredGraph.get(vertex).equals(color)) {
-							coloredGraph.put(x, getUnusedColorInNeighbors(graph, coloredGraph, x).get(0));
+							coloredGraph.put(x, unusedColors.get(0));
 							break;
 						}
 					}
@@ -35,7 +43,6 @@ public class Algorithm {
 			}
 						
 			if (graph.get(x).size() == 5) {
-				ArrayList<Color> unusedColors = getUnusedColorInNeighbors(graph, coloredGraph, x);
 				
 				//Brique 5
 				if (unusedColors.size() >= 1) {
@@ -48,7 +55,6 @@ public class Algorithm {
 			}
 			//Cas voisins > 5
 			else{
-				ArrayList<Color> unusedColors = getUnusedColorInNeighbors(graph, coloredGraph, x);
 				if (unusedColors.size() >= 1) {
 					coloredGraph.put(x, unusedColors.get(0));
 				}
@@ -62,11 +68,17 @@ public class Algorithm {
 		return coloredGraph;
 	}
 
+	/**
+	 * Return true if the graph is 5-coloring
+	 * @param graph
+	 * @param coloredGraph
+	 * @return
+	 */
 	public boolean checkColoring(HashMap<Integer, ArrayList<Integer>> graph,HashMap<Integer, Color> coloredGraph){
 		ArrayList<Integer> checked = new ArrayList<>();
 
-		for (Map.Entry mapentry : graph.entrySet()) {
-			for(Integer voisin : (Integer[]) mapentry.getValue()) {
+		for (Map.Entry<Integer, ArrayList<Integer>> mapentry : graph.entrySet()) {
+			for(Integer voisin : mapentry.getValue()) {
 				if (!checked.contains(voisin)) {
 					if (coloredGraph.get(mapentry.getKey()).equals(coloredGraph.get(voisin))) {
 						return false;

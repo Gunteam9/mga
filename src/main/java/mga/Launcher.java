@@ -25,21 +25,28 @@ public class Launcher {
 			if(algo.checkColoring(graph,coloredGraph)){
 				fileSystem.writeFile(coloredGraph);
 			}
+			else
+				System.err.println("Le graphe généré n'est pas 5-coloration");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 				
 		for (Map.Entry<Integer, Color> entry : coloredGraph.entrySet()) {
-			System.out.println(entry.getKey() + " est " + entry.getValue());
+			System.out.println(entry.getKey() + " est " + Utils.getColorName(entry.getValue()));
 		}
 		
-		Graphic graphic = new Graphic(fileSystem.readGraphicFile(graphPointPosition), graph, coloredGraph);
-
 		long endTime   = System.nanoTime();
 		long totalTime = endTime - startTime;
 		double totalTimeInSecond = (double) totalTime /1_000_000_000;
-		System.out.println(totalTimeInSecond + "secondes" );
+		System.out.println("Temps d'exécution (sans le graphique):" + totalTimeInSecond + " secondes" );
+		
+		new Graphic(fileSystem.readGraphicFile(graphPointPosition), graph, coloredGraph);
+		
+		long endTimeWithGraphic   = System.nanoTime();
+		long totalTimeWithGraphic = endTimeWithGraphic - startTime;
+		double totalTimeInSecondWithGraphic = (double) totalTimeWithGraphic /1_000_000_000;
+		System.out.println("Temps d'exécution (sans le graphique):" + totalTimeInSecondWithGraphic + " secondes" );
 	}
 
 }

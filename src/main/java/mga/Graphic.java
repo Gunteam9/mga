@@ -1,10 +1,7 @@
 package mga;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +11,7 @@ import javax.swing.JPanel;
 
 import org.javatuples.Quartet;
 
+@SuppressWarnings("serial")
 public class Graphic extends JPanel{
 	
 	public int POINT_SIZE = 3;
@@ -29,6 +27,12 @@ public class Graphic extends JPanel{
 	//Pos x 1, Pos y 1, Pos x 2, Pos y 2
 	private ArrayList<Quartet<Integer, Integer, Integer, Integer>> linesToDraw = new ArrayList<>();
 	
+	/**
+	 * Create and open a JFrame with the given graph
+	 * @param pointPosition
+	 * @param graph
+	 * @param coloredGraph
+	 */
 	public Graphic(HashMap<Integer, Integer[]> pointPosition, HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, Color> coloredGraph) {
 		JFrame frame = new JFrame("Graphe");
 		
