@@ -14,11 +14,10 @@ public class Launcher {
 	private static Algorithm algo = new Algorithm();
 	
 	
-	public static void main(String[] args) {	
+	public static void main(String[] args) {
+		long startTime = System.nanoTime();
 		HashMap<Integer, ArrayList<Integer>> graph = fileSystem.readFile(graphFile);
 		HashMap<Integer, Color> coloredGraph = null;
-		long startTime = System.nanoTime();
-		
 				
 		try {
 			coloredGraph = algo.coloringRec(graph);
@@ -46,7 +45,7 @@ public class Launcher {
 		long endTimeWithGraphic   = System.nanoTime();
 		long totalTimeWithGraphic = endTimeWithGraphic - startTime;
 		double totalTimeInSecondWithGraphic = (double) totalTimeWithGraphic /1_000_000_000;
-		System.out.println("Temps d'exécution (sans le graphique):" + totalTimeInSecondWithGraphic + " secondes" );
+		System.out.println("Temps d'exécution (avec le graphique):" + totalTimeInSecondWithGraphic + " secondes" );
 	}
 
 }

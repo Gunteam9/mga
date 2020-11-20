@@ -85,7 +85,7 @@ public class Algorithm {
 					}
 				}
 			}
-			checked.add((Integer) mapentry.getKey());
+			checked.add(mapentry.getKey());
 		}
 		return true;
 	}
@@ -93,6 +93,7 @@ public class Algorithm {
 	private HashMap<Integer, Color> brique6(HashMap<Integer, ArrayList<Integer>> graph, HashMap<Integer, Color> coloredGraph, int x) {
 		PriorityQueue<Integer> voisinsAtteint = new PriorityQueue<>();
 		ArrayList<Integer> voisinsConnus = new ArrayList<Integer>();
+
 		for (Integer voisinDeX : graph.get(x)) {
 			for (Integer voisinDeVoisinDeX : graph.get(voisinDeX)) {
 				if (!voisinsConnus.contains(voisinDeVoisinDeX)) {
@@ -117,7 +118,6 @@ public class Algorithm {
 				if (!voisinsConnus.contains(encoreLesVoisinsDeX)) {
 					coloredGraph = echangerCouleur(graph, coloredGraph, x, encoreLesVoisinsDeX);
 					coloredGraph = echangerCouleur(graph, coloredGraph, encoreLesVoisinsDeX, voisinDeX);
-					coloredGraph = brique6(graph, coloredGraph, x);
 					break;
 				}
 			}
