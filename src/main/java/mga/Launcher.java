@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Launcher {
 
-	public static final float graphSizeMult = 0.2f;
+	public static final float graphSizeMult = 0.02f;
 	private static final File graphFile = new File("resources/JoliGraphe100.graphe");
 	private static final File graphPointPosition = new File("resources/JoliGraphe100.coords");
 	
