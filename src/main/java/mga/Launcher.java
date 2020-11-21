@@ -8,9 +8,9 @@ import java.util.Map;
 
 public class Launcher {
 
-	public static final float graphSizeMult = 0.02f;
-	private static final File graphFile = new File("resources/JoliGraphe100.graphe");
-	private static final File graphPointPosition = new File("resources/JoliGraphe100.coords");
+	public static final float graphSizeMult = 1f;
+	private static final File graphFile = new File("resources/JoliGraphe10.graphe");
+	private static final File graphPointPosition = new File("resources/JoliGraphe10.coords");
 	
 	private static FileSystem fileSystem = new FileSystem();
 	private static Algorithm algo = new Algorithm();
